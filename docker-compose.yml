@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  testapi:
+    build:
+      context: ./Nodejs
+      dockerfile: Dockerfile
+    ports:
+      - 4100
+  angular:
+    build:
+      context: ./Angular
+      dockerfile: Dockerfile
+    ports:
+      - 4200
+    depends_on:
+      - testapi
+  mysql:
+    build:
+      context: ./MySQL
+      dockerfile: Dockerfile
+    environment:
+      SA_USER: $SQL_USER
+      SA_PASSWORD: $SQL_PASS
+    ports:
+      - 4300
